@@ -11,5 +11,8 @@ I read the documentation and watched the turorial on Moodle, and then wrote the 
 [![milestone1-video](http://img.youtube.com/vi/U18bfA6zWbI/0.jpg)](https://www.youtube.com/watch?v=U18bfA6zWbI)
 *(This is a Youtube link)*  
 
+
 Things learnt:
-- 
+- Define the variables before the loop, so that their values can be modified without having to go through all the code.
+- How to use Github Desktop
+
