@@ -13,7 +13,7 @@ I read the documentation and watched the turorial on Moodle, and then wrote the 
 
 Then I set up an arena for Milestone1.
 
-[![milestone1-video](http://img.youtube.com/vi/U18bfA6zWbI/0.jpg)](https://www.youtube.com/watch?v=U18bfA6zWbI)
+[![milestone1-video](http://img.youtube.com/vi/A9531wtNQUo/0.jpg)](https://www.youtube.com/watch?v=A9531wtNQUo)
 *(This is a Youtube link)*  
 
 
