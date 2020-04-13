@@ -14,10 +14,10 @@ I read the documentation and watched the turorial on Moodle, and then wrote the 
   - I first tried 10000ms, finding out that the robot moved much farther than 4 ft with this time duration. After a few more trials of trying, I figured out that 5000ms with a speed of 200 was just fine.
 
 ### Arena
-Since I only have two 15cm-rulers, the arena was set up quite roughly by moving the rulers along.  
-[arena1_materials](arena1_materials.jpg)
+Since I only had two 15cm-rulers, the arena was set up quite roughly by moving the rulers along.  
+![arena1_materials](arena1_materials.jpg)
 Here is the look:  
-[arena1](arena1.jpg)
+![arena1](arena1.jpg)
 
 [![milestone1-video](http://img.youtube.com/vi/A9531wtNQUo/0.jpg)](https://www.youtube.com/watch?v=A9531wtNQUo)
 *(This is a Youtube link)*  
