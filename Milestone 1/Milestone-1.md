@@ -20,6 +20,7 @@ Since I only had two 15cm-rulers, the arena was set up quite roughly by moving t
 Here is the look:  
 ![arena1](arena1.jpg)
 
+### Milestone1 Completed
 [![milestone1-video](http://img.youtube.com/vi/A9531wtNQUo/0.jpg)](https://www.youtube.com/watch?v=A9531wtNQUo)
 *(This is a Youtube link)*  
 
