@@ -6,18 +6,23 @@
 - [x] Code 
 - [x] Complete the first milestone
 
+### Code
 I read the documentation and watched the turorial on Moodle, and then wrote the code.
 1. Install the ZumoShield Library.
 2. Set speeds for the motors.
 3. Make a stop point based on the time passed.
 
-Then I set up an arena for Milestone1.
+### Arena
+Since I only have two 15cm-rulers, the arena was set up quite roughly by moving the rulers along.  
+[arena1_materials](arena1_materials.jpg)
+Here is the look:  
+[arena1](arena1.jpg)
 
 [![milestone1-video](http://img.youtube.com/vi/A9531wtNQUo/0.jpg)](https://www.youtube.com/watch?v=A9531wtNQUo)
 *(This is a Youtube link)*  
 
 
-Things learnt:
-- Define the variables before the loop, so that their values can be modified without having to go through all the code.
+### Things learnt:
+- Define the variables before the loop, so that their values can be modified without having to go through all the code. (Avoid hard coding)
 - How to use Github Desktop
 
