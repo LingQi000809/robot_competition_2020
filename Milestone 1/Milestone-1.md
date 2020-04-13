@@ -16,6 +16,7 @@ I read the documentation and watched the turorial on Moodle, and then wrote the 
 ### Arena
 Since I only had two 15cm-rulers, the arena was set up quite roughly by moving the rulers along.  
 ![arena1_materials](arena1_materials.jpg)
+
 Here is the look:  
 ![arena1](arena1.jpg)
 
