@@ -9,8 +9,9 @@
 ### Code
 I read the documentation and watched the turorial on Moodle, and then wrote the code.
 1. Install the ZumoShield Library.
-2. Set speeds for the motors.
-3. Make a stop point based on the time passed.
+2. Set the SPEED for the motors.
+3. Make a stopping point based on the time passed.
+  - I first tried 10000ms, finding out that the robot moves much farther than 4 ft with this time duration. After a few more trials of trying, I figured out that 5000ms with a speed of 200 is just fine.
 
 ### Arena
 Since I only have two 15cm-rulers, the arena was set up quite roughly by moving the rulers along.  
