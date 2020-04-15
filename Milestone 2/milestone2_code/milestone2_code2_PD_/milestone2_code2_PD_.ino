@@ -7,6 +7,10 @@ ZumoBuzzer buzzer;
 
 unsigned int sensorValues[6];
 unsigned int linePos; // position of the line (readLine function)
+int error;
+int lastError = 0;
+int errorChange;
+int lastErrorChange = ;
 
 int NORMAL_SPEED = 200; // speed: 0 (stop) - 400 (full)
 int LEFT_SPEED;
@@ -43,7 +47,7 @@ void setup() {
   motors.setSpeeds(0,0);
   // Wait for the user button to be pressed and released
   button.waitForButton();
-  buzzer.play("L16 cegec4");
+  buzzer.play("L16 cdegreg4");
   while(buzzer.isPlaying());
 }
 
@@ -53,7 +57,9 @@ void loop() {
   // 0 - directly below sensor 0 
   // 1 - directly below sensor 1
   // 5 - 5000
-  Serial.println(linePos);
+
+  error = linePos - 2500;
+  errorChange = error-lastError;
 
   if (linePos > 3000) {
     // anti-clockwise
@@ -71,5 +77,6 @@ void loop() {
   }
 
   motors.setSpeeds(LEFT_SPEED, RIGHT_SPEED);
-  //delay(100);
+  lastError = error;
+  lastErrorChange =  errorChange;
 }
