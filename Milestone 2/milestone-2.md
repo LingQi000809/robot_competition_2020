@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Milestone 2
 ## Follow A Line for at least 4 feet
 
@@ -107,5 +107,3 @@ With my method, the robot no longer bang-bang, but the adjustment is still not a
 1) It is good enough in terms of solving the maze task, 
 2) It is not visually (and auditorily?) painful anymore, and 
 3) I solved it by myself! :D
-
->>>>>>> 492fc000d3ee93f6e34563737c39a1138d816cae
