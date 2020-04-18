@@ -1,19 +1,18 @@
 # Milestone 2
 ## Follow A Line for at least 4 feet
 
-### Code
-#### ATTEMPT 1
+### ATTEMPT 1
 - Used the **readline** function to read the position of the line. The reading from the function is stored as a variable *linePos*.
   - 1000 indicates that the line is below sensor1; 5000 indicates that the line is below sensor5... Thus, 2500 is the most optimal position.
 - When the reading is between 2000 and 3000, the two motors move at the same speed;
 - Otherwise, one motor moves while the other one stops so that the robot can rotate to the right direction.
 
-##### OUTCOME: 
+#### OUTCOME: 
 - In Attempt 1, the robot follows the line, yet it's not moving smoothly.   
 - The robot is bang-bang-ing from left to right because it is constantly adjusting the motors' speeds, from a constant value to 0, and from 0 to that value...  
 After consulting Josh, I got to know the PD control method, and tried to figure it out...
 
-#### ATTEMPT 2
+### ATTEMPT 2
 
 ![BANG-BANG](BANG-BANG.jpg)
 
@@ -33,7 +32,7 @@ This would allow some smoothness - The robot is not changing speeds and directio
   When the error is not large:
   - The robot is in an optimal position, so both motors move in the *normal (optimal) speed* of 200.
 
-##### OUTCOME: 
+#### OUTCOME: 
 - The robot is still bang-bang-ing.
 - The problem is that 
 
