@@ -11,11 +11,11 @@
 
 ### ATTEMPT 2
 SOLUTIONS:  
-**BANG-BANG**
-- I increase the error threshold from 500 to 1000, which means that the speed only changes when the reading of the line is smaller than 1500 or larger than 3500.
 
-**Turn at the corner**
-I had several ideas to deal with this one:
+**BANG-BANG**
+- I increase the error threshold from 500 to 1000, which means that the speed only changes when the reading of the line is smaller than 1500 or larger than 3500.  
+**Turn at the corner**  
+I had several ideas to deal with this one:  
 1) A timer recording the duration that the error remains to be 2500.  
   The problem is that it's hard to know how long the robot takes to make a turn. So it's hard to tell whether the robot is encountering a turn or the exit of a line. Also, in a maze, the robot can go into a **dead-end** and the timer might mislead it to stop though it should turn around.
 2) Calculate the angle and make a 90 degree turn.  
