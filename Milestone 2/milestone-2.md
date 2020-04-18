@@ -47,5 +47,8 @@ This would allow some smoothness - The robot is not changing speeds and directio
 [![milestone2-video](http://img.youtube.com/vi/b3Bkt6sIzog/0.jpg)](https://www.youtube.com/watch?v=b3Bkt6sIzog)
 *(This is a Youtube link)*  
 
-With my method, the robot no longer bang-bang, but the adjustment is still not as smooth as Josh's PD control method. However, I decided to stick with my method because 1) It is good enough in terms of solving the maze task, 2) It is not visually (and auditorily?) painful anymore, and 3) I solved it by myself! :D
+With my method, the robot no longer bang-bang, but the adjustment is still not as smooth as Josh's PD control method. However, I decided to stick with my method because 
+1) It is good enough in terms of solving the maze task, 
+2) It is not visually (and auditorily?) painful anymore, and 
+3) I solved it by myself! :D
 
