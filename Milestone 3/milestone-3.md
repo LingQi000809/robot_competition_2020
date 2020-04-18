@@ -25,6 +25,7 @@ I had several ideas to deal with this one:
   I checked the example image of a maze, and found out that there will be a special indication of the exit of the maze. Thus, I don't need to program a stopping point when the robot comes to an end of a line.
   - **When the error is 2500, the motors turn in opposite maximum speed, which makes a sharp turn.**
 
+
 ### MILESTONE 3 COMPLETED!   
 [![milestone3-video](http://img.youtube.com/vi/fUd89y8w_i4/0.jpg)](https://www.youtube.com/watch?v=fUd89y8w_i4)
 *(This is a Youtube link)*  
