@@ -23,20 +23,27 @@ Without watching Josh's tutorial, I developed my own method of **"proportional c
 
 This would allow some smoothness - The robot is not changing speeds and directions suddenly.
 
-- **Speed**
-  - The speed is calculated using the formula in the image.
-- **Direction**   
-**When the error is large enough:**
+**Speed**
+- The speed is calculated using the formula in the image.
+**Direction**   
+- When the error is large enough:
   - When *linePos* > 2500, the robot is to the left of the line, move the left motor in the calculated speed and stop the right motor;
   - When *linePos* < 2500, the robot is to the right of the line, move the right motor in the calculated speed and stop the left motor;   
-  
-**When the error is not large:**
+- When the error is not large:
   - The robot is in an optimal position, so both motors move in the *normal (optimal) speed* of 200.
 
 #### OUTCOME: 
 - The robot is still bang-bang-ing.
-- The problem is that 
+- The problem is that when the error is not large, the speed still changes from the calculated value to 200 suddenly.
 
+
+### ATTEMPT 3
+- Thus, when the error is not large, the speed remains to be the last calculated speed to maintain the smoothness.
+- **Stop when reaching the end**
+  I also programmed a stopping point for the robot. When the error is 2500, the motors stop. This is because the constant adjustment will not allow the reading of the line to increase to 2500. Thus, when the reading is 2500, it means that the line is no longer detected.
+  (This is later proved untrue in Milestone 3)
+
+### MILESTONE 2 COMPLETED!   
 [![milestone2-video](http://img.youtube.com/vi/b3Bkt6sIzog/0.jpg)](https://www.youtube.com/watch?v=b3Bkt6sIzog)
 *(This is a Youtube link)*  
 
