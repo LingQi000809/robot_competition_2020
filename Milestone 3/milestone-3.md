@@ -10,10 +10,10 @@
 - The robot stops at the corner of the square!
 
 ### ATTEMPT 2
-SOLUTIONS:  
 
 **BANG-BANG**
-- I increase the error threshold from 500 to 1000, which means that the speed only changes when the reading of the line is smaller than 1500 or larger than 3500.  
+- I increased the error threshold from 500 to 1000, which meant that the speed only changed when the reading of the line was smaller than 1500 or larger than 3500.  
+
 **Turn at the corner**  
 I had several ideas to deal with this one:  
 1) A timer recording the duration that the error remains to be 2500.  
