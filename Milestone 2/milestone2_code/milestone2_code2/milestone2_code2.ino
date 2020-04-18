@@ -8,9 +8,6 @@ ZumoBuzzer buzzer;
 unsigned int sensorValues[6];
 unsigned int linePos; // position of the line (readLine function)
 int error;
-//int lastError = 0;
-//int errorChange;
-//int lastErrorChange = ;
 
 int NORMAL_SPEED = 200; // speed: 0 (stop) - 400 (full)
 int MAX_SPEED = 300;
@@ -46,11 +43,6 @@ void setup() {
     delay(20);
   }
 
-  //  // calibration by hand
-  //  for (int t =  0; t<100; t++){
-  //    sensors.calibrate();
-  //  }
-
   buzzer.play(">g32>>c32");
   motors.setSpeeds(0, 0);
   // Wait for the user button to be pressed and released
@@ -60,7 +52,6 @@ void setup() {
 }
 
 void loop() {
-
   linePos = sensors.readLine(sensorValues);
   // 0 - directly below sensor 0
   // 1 - directly below sensor 1
@@ -69,10 +60,10 @@ void loop() {
   error = linePos - 2500;
   //errorChange = error-lastError;
   v = error / LINEPOS_SPEED_RATIO + NORMAL_SPEED;
-  Serial.print("error = ");
-  Serial.print(error);
-  Serial.print("; v = ");
-  Serial.println(v);
+//  Serial.print("error = ");
+//  Serial.print(error);
+//  Serial.print("; v = ");
+//  Serial.println(v);
 
   if (abs(error) == 2500) {
     LEFT_SPEED = MAX_SPEED;
@@ -80,12 +71,12 @@ void loop() {
   }
   else if (abs(error) > ERROR_THRESHOLD) {
     if (linePos > 2500) {
-      // right, anti-clockwise
+      // left, anti-clockwise
       LEFT_SPEED = v;
       RIGHT_SPEED = 0;
     }
     else if (linePos < 2500) {
-      // left, clockwise
+      // right, clockwise
       LEFT_SPEED = 0;
       RIGHT_SPEED = v;
     }
@@ -96,6 +87,4 @@ void loop() {
   }
 
   motors.setSpeeds(LEFT_SPEED, RIGHT_SPEED);
-  //  lastError = error;
-  //  lastErrorChange =  errorChange;
 }
