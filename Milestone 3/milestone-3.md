@@ -26,6 +26,7 @@ I had several ideas to deal with this one:
   - **When the error is 2500, the motors turn in opposite maximum speed, which makes a sharp turn.**
 
 
+  
 ### MILESTONE 3 COMPLETED!   
 [![milestone3-video](http://img.youtube.com/vi/fUd89y8w_i4/0.jpg)](https://www.youtube.com/watch?v=fUd89y8w_i4)
 *(This is a Youtube link)*  
