@@ -66,8 +66,8 @@ void loop() {
   //  Serial.println(v);
 
   if (abs(error) == 2500) {
-    motors.setSpeeds(0, 0);
-    exit(0);
+    LEFT_SPEED = MAX_SPEED;
+    RIGHT_SPEED = -MAX_SPEED;
   }
   else if (abs(error) > ERROR_THRESHOLD) {
     if (linePos > 2500) {
