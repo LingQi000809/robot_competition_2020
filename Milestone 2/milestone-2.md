@@ -24,7 +24,7 @@ Without watching Josh's tutorial, I developed my own method of **"proportional c
 This would allow some smoothness - The robot is not changing speeds and directions suddenly.
 
 **Speed**
-- The speed is calculated using the formula in the image.
+- The speed is calculated using the formula in the image.  
 **Direction**   
 - When the error is large enough:
   - When *linePos* > 2500, the robot is to the left of the line, move the left motor in the calculated speed and stop the right motor;
@@ -47,4 +47,5 @@ This would allow some smoothness - The robot is not changing speeds and directio
 [![milestone2-video](http://img.youtube.com/vi/b3Bkt6sIzog/0.jpg)](https://www.youtube.com/watch?v=b3Bkt6sIzog)
 *(This is a Youtube link)*  
 
+With my method, the robot no longer bang-bang, but the adjustment is still not as smooth as Josh's PD control method. However, I decided to stick with my method because 1) It is good enough in terms of solving the maze task, 2) It is not visually (and auditorily?) painful anymore, and 3) I solved it by myself! :D
 
