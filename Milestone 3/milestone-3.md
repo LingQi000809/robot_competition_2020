@@ -14,7 +14,7 @@
 **BANG-BANG**
 - I increased the error threshold from 500 to 1000, which meant that the speed only changed when the reading of the line was smaller than 1500 or larger than 3500.  
 
-**Turn at the corner**  
+**TURN AT THE CORNER**  
 I had several ideas to deal with this one:  
 1) A timer recording the duration that the error remains to be 2500.  
   The problem is that it's hard to know how long the robot takes to make a turn. So it's hard to tell whether the robot is encountering a turn or the exit of a line. Also, in a maze, the robot can go into a **dead-end** and the timer might mislead it to stop though it should turn around.
