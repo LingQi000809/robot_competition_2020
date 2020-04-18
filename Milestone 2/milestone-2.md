@@ -29,6 +29,7 @@ This would allow some smoothness - The robot is not changing speeds and directio
 **When the error is large enough:**
   - When *linePos* > 2500, the robot is to the left of the line, move the left motor in the calculated speed and stop the right motor;
   - When *linePos* < 2500, the robot is to the right of the line, move the right motor in the calculated speed and stop the left motor;   
+  
 **When the error is not large:**
   - The robot is in an optimal position, so both motors move in the *normal (optimal) speed* of 200.
 
