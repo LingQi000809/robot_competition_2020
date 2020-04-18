@@ -3,52 +3,29 @@
 ## Follow A Line along a 2'*2' square.
 
 ### ATTEMPT 1
-- Used the **readline** function to read the position of the line. The reading from the function is stored as a variable *linePos*.
-  - 1000 indicates that the line is below sensor1; 5000 indicates that the line is below sensor5... Thus, 2500 is the most optimal position.
-- When the reading is between 2000 and 3000, the two motors move at the same speed;
-- Otherwise, one motor moves while the other one stops so that the robot can rotate to the right direction.
+- I used the code for Milestone 2.
 
-##### OUTCOME: 
-- In Attempt 1, the robot follows the line, yet it's not moving smoothly.   
-- The robot is bang-bang-ing from left to right because it is constantly adjusting the motors' speeds, from a constant value to 0, and from 0 to that value...  
-After consulting Josh, I got to know the PD control method, and tried to figure it out...
+##### PROBLEMATIC OUTCOMES: 
+- The robot is moving bang-bang-ly again.
+- The robot stops at the corner of the square!
 
 ### ATTEMPT 2
+SOLUTIONS:  
+**BANG-BANG**
+- I increase the error threshold from 500 to 1000, which means that the speed only changes when the reading of the line is smaller than 1500 or larger than 3500.
 
-![BANG-BANG](BANG-BANG.jpg)
+**Turn at the corner**
+I had several ideas to deal with this one:
+1) A timer recording the duration that the error remains to be 2500.  
+  The problem is that it's hard to know how long the robot takes to make a turn. So it's hard to tell whether the robot is encountering a turn or the exit of a line. Also, in a maze, the robot can go into a **dead-end** and the timer might mislead it to stop though it should turn around.
+2) Calculate the angle and make a 90 degree turn.  
+  The problem is that it's hard to figure out whether the robot should turn clockwise or anti-clockwise.
+3) Don't stop based on the error reading! Just keep turning.
+  I checked the example image of a maze, and found out that there will be a special indication when it's the exit of the maze. Thus, I don't need to program a stopping point when the robot comes to an end of a line.
+  - **When the error is 2500, the motors turn in opposite maximum speed, which makes a sharp turn.**
 
-Without watching Josh's tutorial, I developed my own method of **"proportional control"**. The idea is to map the speed to the error (distance between the robot and the line).
-- The optimal position is 2500, when the line is right below the middle of the robot;  
-- The optimal speed I chose is 200 (from a range of 0-400).  
-- If the maximum speed allowed for the motor is set to 400, then for every 12.5 error, the speed should change by 1. This makes sure that when the error is the largest, the motor is moving the fastest to get back to the line. When the error is very small, the motor moves very slowly.   
-
-This would allow some smoothness - The robot is not changing speeds and directions suddenly.
-
-**Speed**
-- The speed is calculated using the formula in the image.  
-**Direction**   
-- When the error is large enough:
-  - When *linePos* > 2500, the robot is to the left of the line, move the left motor in the calculated speed and stop the right motor;
-  - When *linePos* < 2500, the robot is to the right of the line, move the right motor in the calculated speed and stop the left motor;   
-- When the error is not large:
-  - The robot is in an optimal position, so both motors move in the *normal (optimal) speed* of 200.
-
-#### OUTCOME: 
-- The robot is still bang-bang-ing.
-- The problem is that when the error is not large, the speed still changes from the calculated value to 200 suddenly.
-
-
-### ATTEMPT 3
-- Thus, when the error is not large, the speed remains to be the last calculated speed to maintain the smoothness.
-- **Stop when reaching the end**
-  I also programmed a stopping point for the robot. When the error is 2500, the motors stop. This is because the constant adjustment will not allow the reading of the line to increase to 2500. Thus, when the reading is 2500, it means that the line is no longer detected.
-  (This is later proved untrue in Milestone 3)
-
-### MILESTONE 2 COMPLETED!   
-[![milestone2-video](http://img.youtube.com/vi/b3Bkt6sIzog/0.jpg)](https://www.youtube.com/watch?v=b3Bkt6sIzog)
+### MILESTONE 3 COMPLETED!   
+[![milestone3-video](http://img.youtube.com/vi/fUd89y8w_i4/0.jpg)](https://www.youtube.com/watch?v=fUd89y8w_i4)
 *(This is a Youtube link)*  
 
-With my method, the robot no longer bang-bang, but the adjustment is still not as smooth as Josh's PD control method. However, I decided to stick with my method because 
-1) It is good enough in terms of solving the maze task, 
-2) It is not visually (and auditorily?) painful anymore, and 
-3) I solved it by myself! :D
+The robot seems to be moving at different speeds on different sides of the square. This is probably because the speed when the robot is moving in an optimal range is not constant - it depends on the last calculated speed (see milestone2).
