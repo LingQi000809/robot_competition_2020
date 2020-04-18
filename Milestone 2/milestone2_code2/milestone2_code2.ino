@@ -18,7 +18,7 @@ int LEFT_SPEED;
 int RIGHT_SPEED;
 
 int LINEPOS_SPEED_RATIO = (MAX_LINEPOS - MIDDLE_LINEPOS) / (MAX_SPEED - NORMAL_SPEED);
-int ERROR_THRESHOLD = 1000;
+int ERROR_THRESHOLD = 500;
 
 void setup() {
   // put your setup code here, to run once:
