@@ -58,55 +58,47 @@ int lastLinePos = 2500;
 // int cursor = 0； // updated to know the next path
 
 void loop() {
-  // stop?
-  sensors.read(sensorValues);
-  boolean same = true;
-  int current_sensor;
-  int last_sensor = sensorValues[0];
+
+  sensors.readCalibrated(sensorValues);
+
+  // end of the maze
+  boolean allBlack = true;
   for (int i = 1; i < 6; i++) {
-    current_sensor = sensorValues[i];
-    if (current_sensor != last_sensor) { // threshold? abs(current_sensor-last_sensor)>50
-      same = false;
+    if (sensorValues[i] != 1000) {
+      allBlack = false;
       break;
     }
-    last_sensor = current_sensor;
   }
-  if (same) {
+  if (allBlack) {
     motors.setSpeeds(0, 0);
     exit(0);
   }
 
+  // turning
+  if ((sensorValues[4] == 1000) && (sensorValues[5] == 1000)) { // turn right
+    buzzer.play("c32"); //store the move!
+    while (abs(sensors.readLine(sensorValues) - 2500) > ERROR_THRESHOLD / 2) {
+      motors.setSpeeds(MAX_SPEED, -MAX_SPEED);
+    }
+  }
+  else if ((sensorValues[0] == 1000) && (sensorValues[1] == 1000)) { // turn left
+    buzzer.play("g32");
+    while (abs(sensors.readLine(sensorValues) - 2500) > ERROR_THRESHOLD / 2) {
+      motors.setSpeeds(-MAX_SPEED, MAX_SPEED);
+    }
+  }
 
+
+
+  // follow line
   linePos = sensors.readLine(sensorValues); // 0 - directly below sensor 0; 1 - directly below sensor 1; 5 - 5000
-
   error = linePos - 2500;
   v = error / LINEPOS_SPEED_RATIO + NORMAL_SPEED;
   //  Serial.print("error = ");
   //  Serial.println(error);
   //  Serial.print("; v = ");
   //  Serial.println(v);
-
-  if (abs(error) > 2000) {
-    if (lastLinePos > 2500) { // to the right
-      buzzer.play("c32r32"); //store the move!
-      while (abs(sensors.readLine(sensorValues) - 2500) > ERROR_THRESHOLD/2) {
-        motors.setSpeeds(MAX_SPEED, -MAX_SPEED);
-      }
-    }
-    //      Serial.print("RIGHT_V = ");
-    //      Serial.println(RIGHT_SPEED);
-    else { // to the left
-      buzzer.play("g32r32");
-      while (abs(sensors.readLine(sensorValues) - 2500) > ERROR_THRESHOLD/2) {
-        motors.setSpeeds(-MAX_SPEED, MAX_SPEED);
-      }
-      //      Serial.print("LEFT_V = ");
-      //      Serial.println(LEFT_SPEED);
-    }
-  }
-
-
-  else if (abs(error) > ERROR_THRESHOLD) {
+  if (abs(error) > ERROR_THRESHOLD) {
     if (linePos > 2500) { // left, anti-clockwise
       motors.setSpeeds(v, 0);
     }
@@ -118,5 +110,13 @@ void loop() {
     motors.setSpeeds(v, v);
   }
 
+
+
+  // reset lastLinePos
   lastLinePos = linePos;
+}
+
+
+void follow_line() {
+
 }
