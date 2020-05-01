@@ -17,10 +17,10 @@ In this milestone, a new feature is to turn the robot in a specific direction co
 - **When the last value indicates that the line is below the right half of the robot, the robot turns right.**
 
 #### Problem encountered!
-For some reason, the robot is not turning as smoothly to the left as it is to the right, which is a sharp turn. 
-After talking to Josh, I added a **while loop** after the robot detects a turning that keeps the robot turning until the line is back to the middle (within the error threshold).
-The robot is now performing much better, but it might be tricky sometimes if the turns are close to each other.
-I also made the buzzer to produce a **beep** of different pitches when the robot is turning left and right. This is to debug whether the robot is performing the turning behavior or the follow-line behavior.
+For some reason, the robot is not turning as smoothly to the left as it is to the right, which is a sharp turn.   
+After talking to Josh, I added a **while loop** after the robot detects a turning that keeps the robot turning until the line is back to the middle (within the error threshold).  
+The robot is now performing much better, but it might be tricky sometimes if the turns are close to each other.  
+I also made the buzzer to produce a **beep** of different pitches when the robot is turning left and right. This is to debug whether the robot is performing the turning behavior or the follow-line behavior. 
 - Since the robot is confirmed to be turning, the code of the buzzer can be the place to write the code that stores the turnings for the final milestones.
 
 
