@@ -6,8 +6,8 @@
 I set up the arena by leaving out the branches of the final maze layout.
 ![mazeLayout](mazeLayout.JPG)
 
-
-
+  
+  
 ### FEATURE 1. Turning.
 In this milestone, a new feature is to turn the robot in a specific direction corresponding to the maze layout.
 - Since the turn is always in right angle, the robot will first move beyond the line, reading the maximum error.
@@ -23,14 +23,14 @@ The robot is now performing much better, but it might be tricky sometimes if the
 I also made the buzzer to produce a **beep** of different pitches when the robot is turning left and right. This is to debug whether the robot is performing the turning behavior or the follow-line behavior. 
 - Since the robot is confirmed to be turning, the code of the buzzer can be the place to write the code that stores the turnings for the final milestones.
 
-
-
+  
+   
 ### FEATURE 2. Stop at the end of the maze
 - When all sensors on the robot is reading the same value (black), the robot stops.
 - Later, I realized that this would confuse the robot between a branching and the end of a maze. This mechanism would be changed for milestone 5.
 
-
   
+     
 ### MILESTONE 4 COMPLETED!   
 [![milestone4-video](http://img.youtube.com/vi/gI_dobH_D4w/0.jpg)](https://www.youtube.com/watch?v=gI_dobH_D4w)
 *(This is a Youtube link)*  
