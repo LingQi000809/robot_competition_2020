@@ -74,6 +74,7 @@ void loop() {
     exit(0);
   }
 
+
   // turning
   if ((sensorValues[4] == 1000) && (sensorValues[5] == 1000)) { // turn right
     buzzer.play("c32"); //store the move!
@@ -114,9 +115,4 @@ void loop() {
 
   // reset lastLinePos
   lastLinePos = linePos;
-}
-
-
-void follow_line() {
-
 }
