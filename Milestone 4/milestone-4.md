@@ -9,12 +9,17 @@ I set up the arena by leaving out the branches of the final maze layout.
   
   
 ### FEATURE 1. Turning.
+#### METHOD 1
 In this milestone, a new feature is to turn the robot in a specific direction corresponding to the maze layout.
 - Since the turn is always in right angle, the robot will first move beyond the line, reading the maximum error.
 - Thus, once the error is read maximum, the robot looks back for the last value of the readline() function. 
 ![turning](turning.jpeg)
 - As the diagram explains, if the robot should turn right, the last value it read would indicate that the line is below the right half of the robot. This is because the mechanism of the readline() function is to take the average of the readings in all the sensors.
 - **When the last value indicates that the line is below the right half of the robot, the robot turns right.**
+
+#### METHOD 2
+- Method 1 has a **delay** of detecting the turn, because it looks back to what direction to turn to only UNTIL the sensors go past the turn and see no line anymore. 
+- To eliminate the delay and an extra round of assessment, method 2 looks at the **reading of specific sensors** - when the leftmost sensors both read black, it means the robot should turn left. 
 
 #### Problem encountered!
 For some reason, the robot is not turning as smoothly to the left as it is to the right, which is a sharp turn.   
