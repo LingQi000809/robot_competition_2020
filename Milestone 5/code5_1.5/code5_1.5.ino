@@ -219,21 +219,45 @@ void turn() {
 }
 
 void turnRight() {
-  //buzzer.play("c32"); //store the move!
+  // buzzer.play("O5 c");
+  motors.setSpeeds(100, 100);
+  delay(200);
+  updateReadings();
   motors.setSpeeds(MAX_SPEED, -MAX_SPEED);
-  //delay(150);
-  while (abs(sensors.readLine(sensorValues) - 2500) > 100) {}
-  //delay(50);
+  delay(200);
+  do {
+    updateReadings();
+  } while ((abs(error) > ERROR_THRESHOLD) ||
+           ((sensorValues[0] > 700)
+            || (sensorValues[1] > 700)
+            || (sensorValues[4] > 700)
+            || (sensorValues[5] > 700)));
+updateReadings();
+  branches[branchCursor] = 'R';
+  branchCursor++;
+  printBranches();
 }
-
 
 void turnLeft() {
-  //buzzer.play("g32");
+  // buzzer.play("O4 c");
+  motors.setSpeeds(100, 100);
+  delay(200);
+  updateReadings();
   motors.setSpeeds(-MAX_SPEED, MAX_SPEED);
-  //delay(150);
-  while (abs(sensors.readLine(sensorValues) - 2500) > 100) {}
-  //delay(50);
+  delay(200);
+  do {
+    updateReadings();
+  } while ((abs(error) > ERROR_THRESHOLD) ||
+           ((sensorValues[0] > 700)
+            || (sensorValues[1] > 700)
+            || (sensorValues[4] > 700)
+            || (sensorValues[5] > 700)));
+            updateReadings();
+  branches[branchCursor] = 'L';
+  branchCursor++;
+  printBranches();
 }
+
 
 void followLine() {
   //  Serial.print("error = ");
