@@ -29,6 +29,7 @@ When the line ends without any intersection, the robot is considered to encounte
 #### 2. Conditions and Actions
 ![venn](venn.jpeg)
 As the venn diagram shows, the conditions for t-intersections include the ones for left turns and right turns. Thus, the t-intersection condition must be examined prior to the ones for left and right turns. Otherwise, a t-intersection will never be detected.   
+  
 The robot follows this logic to execute actions:  
 ![logic](Logic.jpg)
 
