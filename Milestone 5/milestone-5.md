@@ -10,15 +10,15 @@
 ### Strategy / Logic
 #### 1. Types of Intersections
 - Left Turn  
-![left](left intersection.jpeg)
+![left intersection](left intersection.jpeg)
 When the line is under the leftmost sensors of the robot, the robot is considered to encounter a left turn.  
 
 - Right Turn  
-![right](right intersection.jpeg)
+![right intersection](right intersection.jpeg)
 When the line is under the rightmost sensors of the robot, the robot is considered to encounter a right turn.  
 
 - T Intersection  
-![t](t intersection.jpeg)
+![t intersection](t intersection.jpeg)
 When the line is under every sensor of the robot, the robot is considered to encounter a T intersection.
 **The end of the maze is also considered a T intersection.**
 
