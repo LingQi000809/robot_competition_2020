@@ -19,14 +19,17 @@ When the line is under the rightmost sensors of the robot, the robot is consider
 
 - T Intersection  
 ![tIntersection](tIntersection.jpeg)
-When the line is under every sensor of the robot, the robot is considered to encounter a T intersection.
+When the line is under every sensor of the robot, the robot is considered to encounter a T intersection.  
 **The end of the maze is also considered a T intersection.**
 
 - Dead End  
 ![deadend](deadend.jpeg)
 When the line ends without any intersection, the robot is considered to encounter a dead end.
 
-#### 2. Actions
+#### 2. Conditions and Actions
+![venn](venn.jpeg)
+As the venn diagram shows, the conditions for t-intersections include the ones for left turns and right turns. Thus, the t-intersection condition must be examined prior to the ones for left and right turns. Otherwise, a t-intersection will never be detected. 
+
 
 ### Problems Encountered
 
