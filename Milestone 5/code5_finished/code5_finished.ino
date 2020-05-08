@@ -13,7 +13,7 @@ int error;
 
 // variable
 int NORMAL_SPEED = 150; // speed: 0 (stop) - 400 (full)
-int MAX_SPEED = 250;
+int MAX_SPEED = 200;
 int ERROR_THRESHOLD = 500;
 int BLACK_THRESHOLD = 200; // > -> blackish
 int WHITE_THRESHOLD = 100; // < -> whiteish
@@ -50,9 +50,15 @@ void loop() {
   if (detectT()) {
     buzzer.play("O4 f");
     Serial.println("----------T----------");
+
+//    Serial.print("[1]-last[1]: ");
+//    Serial.println(sensorChange[1]);
+//    Serial.print("[4]-last[4]: ");
+//    Serial.println(sensorChange[4]);
     printValues();
+    
     moveForward();
-    if (detectT())
+    if (allBlack())
       stopRobot();
     else {
       backToBranch();
@@ -85,7 +91,7 @@ void loop() {
         Serial.println("----------T----------");
         printValues();
         moveForward();
-        if (detectT())
+        if (allBlack())
           stopRobot();
         else {
           backToBranch();
@@ -162,10 +168,16 @@ void calibration() {
 }
 
 void updateReadings() {
+  for (int i = 0; i < 6; i++)
+    lastSensorValues[i] = sensorValues[i];
+
   linePos = sensors.readLine(sensorValues); // 0 - directly below sensor 0; 1 - directly below sensor 1; 5 - 5000
   error = linePos - 2500;
   v = abs(error) / LINEPOS_SPEED_RATIO + NORMAL_SPEED;
   sensors.readCalibrated(sensorValues);
+
+  for (int i = 0; i < 6; i++)
+    sensorChange[i] = sensorValues[i] - lastSensorValues[i];
 }
 
 void stopRobot() {
@@ -184,7 +196,7 @@ void eraseLastPath() {
 
 
 // detect
-boolean detectT() {
+boolean allBlack() {
   return ((sensorValues[0] > BLACK_THRESHOLD)
           && (sensorValues[1] > BLACK_THRESHOLD)
           && (sensorValues[2] > BLACK_THRESHOLD)
@@ -192,6 +204,11 @@ boolean detectT() {
           && (sensorValues[4] > BLACK_THRESHOLD)
           && (sensorValues[5] > BLACK_THRESHOLD));
 }
+
+boolean detectT() {
+  return ((sensorChange[1] > 100) && (sensorChange[4] > 100));
+}
+
 
 boolean deadEnd() {
   return ((sensorValues[0] < WHITE_THRESHOLD)
@@ -227,7 +244,7 @@ void backToBranch() { // might have problem with cross road
   do {
     motors.setSpeeds(-100, -100);
     updateReadings();
-  } while (!detectT);
+  } while (!allBlack);
   delay(50); // cancel out the moveforward in the turning right function
   updateReadings();
 }
