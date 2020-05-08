@@ -13,11 +13,11 @@
 
 ### Problems Encountered
 
-#### super slow turns in the dead-end
+#### 1. super slow turns in the dead-end
 
-#### half-turn vs. full-turn
+#### 2. half-turn vs. full-turn
 
-#### detecting T intersection
+#### 3. detecting T intersection
 
 
   
