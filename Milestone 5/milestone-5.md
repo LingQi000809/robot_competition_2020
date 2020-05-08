@@ -3,7 +3,7 @@
 ## Solve a single maze with branching.
 
 ### Arena Setup
-![mazeLayout](mazeLayout.JPG)
+![arena5](arena5.jpg)
 
   
   
