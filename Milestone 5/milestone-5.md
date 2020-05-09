@@ -77,7 +77,19 @@ SOLUTION 1 nicely solved the issue.
 ### MILESTONE 5 COMPLETED!   
 [![milestone4-video](http://img.youtube.com/vi/qSIA5p916dI/0.jpg)](https://www.youtube.com/watch?v=qSIA5p916dI)
 *(This is a Youtube link)*  
+  
+The meaning of the pitched beeps when the robot is solving the maze:
+- C4- left turn;
+- C5- right turn;
+- F- detecting T-intersection;
+- CDE - dead-end (and starting the dead-end loop);
+- EDC - exiting the dead-end loop;
 
+The meaning of the pitched beeps after the robot reaches the end: (The stored reduced path)
+- C4- left turn;
+- C5- right turn;
+- G- ignore the intersection and move forward
+  
 #### PATH STORED
 As I coded for Milestone5, I also had the paths stored in advance for Milestone6. I tested the path using the buzzer - When the robot reaches the end, it buzzes the path it memorizes. C4- left turn; C5- right turn; G- ignore the intersection and go forward. As you may see, the path is correctly memorized!   
 The logic will be explained in the note for Milestone 6.
