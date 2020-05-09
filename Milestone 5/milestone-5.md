@@ -37,6 +37,15 @@ The robot follows this logic to execute actions:
 ### Problems Encountered
 
 #### 1. super slow turns in the dead-end
+From time to time, the robot ran into a slow anti-clockwise rotate at a dead-end. Originally, I thought that something was wrong with my left motor, because it only had this behavior anti-clockwise. However, later I discovered that this was due to a line of code: 
+> v = error / LINEPOS_SPEED_RATIO + NORMAL_SPEED;
+This was the code to adjust the speed in the follow-line behavior. The problem was that **the error could be negative** based on the following calculation, and the error would be negative only when the line is to the left of the robot - This explains why the weird behavior only happened when turning to the left (anti-clockwise).    
+> linePos = sensors.readLine(sensorValues);  
+> error = linePos - 2500;   
+Thus, I changed the code to the absolute value of error:  
+> v = abs(error) / LINEPOS_SPEED_RATIO + NORMAL_SPEED;  
+The problem is solved.
+
 
 #### 2. half-turn vs. full-turn
 
