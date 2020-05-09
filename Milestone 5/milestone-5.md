@@ -66,7 +66,7 @@ To tackle with this issue, I did two things:
 - This can result in **some sensors detecting the black line prior to the others**. Thus, sometimes the robot would **detect a left/right turn before all of its sensors saw black and told that it was actually a T-intersection**.
 - To deal with this, I printed the sensor values and tried to find a pattern.  
 
-![detectingT](detectingT.jpeg)
+![detectingT](detectingT.jpg)
 By observing the readings in different conditions, I figured out two solutions, as shown in the graph.
 - SOLUTION 1: Apart from the readings, it makes sense to choose sensor[1] and sensor[4] and see their change of readings, instead of the leftmost and rightmost sensor[0] and sensor[5]. This is because if the robot is approaching in an angle, sensor[1] and [4] will always see black sooner than the outer sensors[0] and [5]. 
 - SOLUTION 2 might seem simpler than SOLUTION 1, but I chose to use SOLUTION 1 for now. This is to avoid the situation where due to somehow a larger angle, the outer sensors' readings are not larger than 100 yet. 
