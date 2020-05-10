@@ -17,6 +17,7 @@ int MAX_SPEED = 200;
 int ADJUSTING_SPEED = 100;
 int moveForwardDelayTime = 200;
 int turnDelayTime = 200;
+
 int ERROR_THRESHOLD = 500;
 int BLACK_THRESHOLD = 300; // > -> blackish
 int WHITE_THRESHOLD = 100; // < -> whiteish
