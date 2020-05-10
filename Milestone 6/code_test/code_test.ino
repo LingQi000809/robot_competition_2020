@@ -12,14 +12,19 @@ int linePos; // position of the line (readLine function)
 int error;
 
 // variable
-int NORMAL_SPEED = 150; // speed: 0 (stop) - 400 (full)
-int MAX_SPEED = 200;
+int NORMAL_SPEED = 320; // speed: 0 (stop) - 400 (full)
+int MAX_SPEED = 400;
+int ADJUSTING_SPEED = 250; 
+int moveForwardDelayTime = 50;
+int turnDelayTime = 80;
 int ERROR_THRESHOLD = 500;
 int BLACK_THRESHOLD = 300; // > -> blackish
 int WHITE_THRESHOLD = 100; // < -> whiteish
+
 int v = NORMAL_SPEED; // CURRENT SPEED
-char branches[100]; //l-left; r-right; f-forward
+char branches[] = {'L', 'F', 'F', 'R', 'L', 'L', 'R', 'R', 'F', 'R', 'R', 'L', 'R', 'L', 'R'};
 int branchCursor = 0;
+int nPath = 14;
 
 
 int MAX_LINEPOS = 5000;
@@ -45,110 +50,7 @@ void setup() {
 }
 
 void loop() {
-  updateReadings();
-
-  if (detectT()) {
-    buzzer.play("O4 f");
-    Serial.println("----------T----------");
-
-//    Serial.print("[1]-last[1]: ");
-//    Serial.println(sensorChange[1]);
-//    Serial.print("[4]-last[4]: ");
-//    Serial.println(sensorChange[4]);
-    printValues();
-    
-    moveForward();
-    if (allBlack())
-      stopRobot();
-    else {
-      backToBranch();
-      turnRight();
-    }
-  }
-
-  else if (detectR()) {
-    Serial.println("----------R----------");
-    printValues();
-    turnRight();
-  }
-  else if (detectL()) {
-    Serial.println("----------L----------");
-    printValues();
-    turnLeft();
-  }
-
-  else if (deadEnd()) {
-    buzzer.play("cde");
-    Serial.println("----------DEADEND----------");
-    printValues();
-    turnRound();
-
-    while (true) {
-      updateReadings();
-
-      if (detectT()) {
-        buzzer.play("O5 f");
-        Serial.println("----------T----------");
-        printValues();
-        moveForward();
-        if (allBlack())
-          stopRobot();
-        else {
-          backToBranch();
-          if (branches[branchCursor - 1] == 'R') {
-            turnRight();
-            eraseLastPath();
-          }
-          else if (branches[branchCursor - 1] == 'L') {
-            turnLeft();
-            eraseLastPath();
-          }
-          branches[branchCursor - 1] = 'F';
-        }
-        printBranches();
-        buzzer.play("edc");
-        break;
-      }
-
-      else if (detectL() || detectR()) {
-        if (branches[branchCursor - 1] == 'F') {
-          buzzer.play("g");
-          moveForward();
-          eraseLastPath();
-        }
-        else {
-          if (detectL()) {
-            Serial.println("----------L----------");
-            printValues();
-            turnLeft();
-          }
-          else if (detectR()) {
-            Serial.println("----------R----------");
-            printValues();
-            turnRight();
-          }
-          for (int i = 0; i < 2; i++) {
-            eraseLastPath();
-          }
-        }
-        printBranches();
-      }
-
-      // shouldn't have another deadEnd inside a deadEnd condition if detecting T every time.
-      else if (deadEnd()) {
-        buzzer.play("cdedc");
-        Serial.println("----------DEADEND----------");
-        printValues();
-        turnRound();
-      }
-
-      else followLine();
-      printValues();
-    }
-  }
-
-  else followLine();
-  printValues();
+  solveMaze();
 }
 
 
@@ -156,7 +58,7 @@ void loop() {
 
 
 void calibration() {
-  int CALIBRATION_SPEED = 120;
+  int CALIBRATION_SPEED = 140;
   for (int t = 0; t <= 80; t++) {
     // 0-10s turn clockwise; 10-30s turn anti-clockwise; 30-50s turn clockwise; 50-70s turn anti-clockwise; 70-80 turn clockwise back to front
     if ((t <= 10) || (t > 30 && t <= 50) || (t > 70))
@@ -181,19 +83,73 @@ void updateReadings() {
     sensorChange[i] = sensorValues[i] - lastSensorValues[i];
 }
 
-void stopRobot() {
-  motors.setSpeeds(0, 0);
-  printBranches();
-  buzzerPath();
-  while (buzzer.isPlaying());
-  exit(0);
-}
 
 void eraseLastPath() {
   branchCursor--;
   branches[branchCursor] = ' ';
 }
 
+
+
+// solving maze
+void solved() {
+  motors.setSpeeds(0, 0);
+  // reset
+  nPath = branchCursor;
+  branchCursor = 0;
+  
+  // examine & end
+  printBranches();
+//  buzzer.play("!T250 O4 L8 g O5 ceg O6 ceg4.e4. O4 a- O5 ce-a- O6 ce-a-4.e-4. O4 b- O5 dfb- O6 df b-4r MS b-b-b- ML O7 c2.");
+//  while (buzzer.isPlaying());
+  buzzerPath();
+  while (buzzer.isPlaying());
+  
+  // launch reduced run
+  // button.waitForButton();
+  delay(3000);
+  buzzer.play("L16 cdegreg4");
+  while (buzzer.isPlaying());
+  solveMaze();
+}
+
+void solveMaze(){
+  while (branchCursor<=nPath){
+    updateReadings();
+    if (detectT() || detectL() || detectR()){
+      //buzzer.play("ceg");
+      action(branchCursor);
+    }
+    else followLine();
+  }
+  //buzzer.play("gfedc");
+  while (!detectT()){
+    updateReadings();
+    followLine();
+  }
+  motors.setSpeeds(0,0);
+  delay(200);
+  buzzer.play("!T250 O3 L8 g O4 ceg O5 ceg4.e4. O3 a- O4 ce-a- O5 ce-a-4.e-4. O3 b- O4 dfb- O5 df b-4r MS b-b-b- ML O6 c2.");
+  while (buzzer.isPlaying());
+  exit(0);
+}
+
+void action(int bCursor){
+  char actionType = branches[bCursor];
+  if (actionType == 'L') {
+    buzzer.play("O4 c");
+    turnLeft();
+  }
+  else if (actionType == 'R') {
+    buzzer.play("O5 c");
+    turnRight();
+  }
+  else if (actionType == 'F'){
+    buzzer.play("O4 g");
+    moveForward();
+    branchCursor++;
+  }
+}
 
 
 // detect
@@ -244,14 +200,14 @@ boolean detectR() {
 
 // action
 void moveForward() {
-  motors.setSpeeds(100, 100);
-  delay(200);
+  motors.setSpeeds(ADJUSTING_SPEED, ADJUSTING_SPEED);
+  delay(moveForwardDelayTime);
   updateReadings();
 }
 
 void backToBranch() { // might have problem with cross road
   do {
-    motors.setSpeeds(-100, -100);
+    motors.setSpeeds(-ADJUSTING_SPEED, -ADJUSTING_SPEED);
     updateReadings();
   } while (!allBlack);
   delay(150); // cancel out the moveforward in the turning right function
@@ -270,10 +226,10 @@ void turnRound() {
 }
 
 void turnRight() {
-  buzzer.play("O5 c");
+  //buzzer.play("O5 c");
   moveForward();
   motors.setSpeeds(MAX_SPEED, -MAX_SPEED);
-  delay(200);
+  delay(turnDelayTime);
   do {
     updateReadings();
   } while ((abs(error) > ERROR_THRESHOLD) ||
@@ -288,10 +244,10 @@ void turnRight() {
 }
 
 void turnLeft() {
-  buzzer.play("O4 c");
+  //buzzer.play("O4 c");
   moveForward();
   motors.setSpeeds(-MAX_SPEED, MAX_SPEED);
-  delay(200);
+  delay(turnDelayTime);
   do {
     updateReadings();
   } while ((abs(error) > ERROR_THRESHOLD) ||
@@ -328,6 +284,7 @@ void followLine() {
 // examine / debug
 
 void buzzerPath() {
+  delay(1000);
   for (int i = 0; i < branchCursor; i++) {
     char curPath = branches[i];
     if (curPath == 'L') buzzer.play("O4 c");

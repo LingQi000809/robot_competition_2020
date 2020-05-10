@@ -12,14 +12,20 @@ int linePos; // position of the line (readLine function)
 int error;
 
 // variable
-int NORMAL_SPEED = 150; // speed: 0 (stop) - 400 (full)
-int MAX_SPEED = 200;
+int NORMAL_SPEED = 250; // speed: 0 (stop) - 400 (full)
+int MAX_SPEED = 300;
+int ADJUSTING_SPEED = 150;
+int moveForwardDelayTime = 100;
+int turnDelayTime = 150;
+
 int ERROR_THRESHOLD = 500;
 int BLACK_THRESHOLD = 300; // > -> blackish
 int WHITE_THRESHOLD = 100; // < -> whiteish
+
 int v = NORMAL_SPEED; // CURRENT SPEED
 char branches[100]; //l-left; r-right; f-forward
 int branchCursor = 0;
+int nPath;
 
 
 int MAX_LINEPOS = 5000;
@@ -59,7 +65,7 @@ void loop() {
     
     moveForward();
     if (allBlack())
-      stopRobot();
+      solved();
     else {
       backToBranch();
       turnRight();
@@ -92,7 +98,7 @@ void loop() {
         printValues();
         moveForward();
         if (allBlack())
-          stopRobot();
+          solved();
         else {
           backToBranch();
           if (branches[branchCursor - 1] == 'R') {
@@ -156,7 +162,7 @@ void loop() {
 
 
 void calibration() {
-  int CALIBRATION_SPEED = 120;
+  int CALIBRATION_SPEED = 140;
   for (int t = 0; t <= 80; t++) {
     // 0-10s turn clockwise; 10-30s turn anti-clockwise; 30-50s turn clockwise; 50-70s turn anti-clockwise; 70-80 turn clockwise back to front
     if ((t <= 10) || (t > 30 && t <= 50) || (t > 70))
@@ -181,19 +187,74 @@ void updateReadings() {
     sensorChange[i] = sensorValues[i] - lastSensorValues[i];
 }
 
-void stopRobot() {
-  motors.setSpeeds(0, 0);
-  printBranches();
-  buzzerPath();
-  while (buzzer.isPlaying());
-  exit(0);
-}
 
 void eraseLastPath() {
   branchCursor--;
   branches[branchCursor] = ' ';
 }
 
+
+
+
+// solving maze
+void solved() {
+  motors.setSpeeds(0, 0);
+  resetValues();
+  
+  // examine & end
+  printBranches();
+//  buzzer.play("!T250 O4 L8 g O5 ceg O6 ceg4.e4. O4 a- O5 ce-a- O6 ce-a-4.e-4. O4 b- O5 dfb- O6 df b-4r MS b-b-b- ML O7 c2.");
+//  while (buzzer.isPlaying());
+  buzzerPath();
+  while (buzzer.isPlaying());
+  
+  // launch reduced run
+  button.waitForButton();
+  buzzer.play("L16 cdegreg4");
+  while (buzzer.isPlaying());
+  solveMaze();
+}
+
+
+void resetValues(){
+  nPath = branchCursor-1;
+  branchCursor = 0;
+  NORMAL_SPEED = 300;
+  MAX_SPEED = 400;
+  LINEPOS_SPEED_RATIO = (MAX_LINEPOS - MIDDLE_LINEPOS) / (MAX_SPEED - NORMAL_SPEED);
+  ADJUSTING_SPEED = 250;
+  moveForwardDelayTime = 50;
+  turnDelayTime = 80;
+}
+  
+void solveMaze(){
+  while (branchCursor<=nPath){
+    updateReadings();
+    if (detectT() || detectL() || detectR()){
+      action(branchCursor);
+    }
+    else followLine();
+  }
+  while (!detectT()){
+    updateReadings();
+    followLine();
+  }
+  motors.setSpeeds(0,0);
+  buzzer.play("!T250 O4 L8 g O5 ceg O6 ceg4.e4. O4 a- O5 ce-a- O6 ce-a-4.e-4. O4 b- O5 dfb- O6 df b-4r MS b-b-b- ML O7 c2.");
+  while (buzzer.isPlaying());
+  exit(0);
+}
+
+void action(int bCursor){
+  char actionType = branches[bCursor];
+  if (actionType == 'L') turnLeft();
+  else if (actionType == 'R') turnRight();
+  else if (actionType == 'F') {
+    buzzer.play("O4 g");
+    moveForward();
+    branchCursor++;
+  }
+}
 
 
 // detect
@@ -244,8 +305,8 @@ boolean detectR() {
 
 // action
 void moveForward() {
-  motors.setSpeeds(100, 100);
-  delay(200);
+  motors.setSpeeds(ADJUSTING_SPEED, ADJUSTING_SPEED);
+  delay(moveForwardDelayTime);
   updateReadings();
 }
 
@@ -273,7 +334,7 @@ void turnRight() {
   buzzer.play("O5 c");
   moveForward();
   motors.setSpeeds(MAX_SPEED, -MAX_SPEED);
-  delay(200);
+  delay(turnDelayTime);
   do {
     updateReadings();
   } while ((abs(error) > ERROR_THRESHOLD) ||
@@ -291,7 +352,7 @@ void turnLeft() {
   buzzer.play("O4 c");
   moveForward();
   motors.setSpeeds(-MAX_SPEED, MAX_SPEED);
-  delay(200);
+  delay(turnDelayTime);
   do {
     updateReadings();
   } while ((abs(error) > ERROR_THRESHOLD) ||
@@ -328,6 +389,7 @@ void followLine() {
 // examine / debug
 
 void buzzerPath() {
+  delay(1000);
   for (int i = 0; i < branchCursor; i++) {
     char curPath = branches[i];
     if (curPath == 'L') buzzer.play("O4 c");
