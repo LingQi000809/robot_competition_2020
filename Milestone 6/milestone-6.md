@@ -13,7 +13,7 @@ As Milestone 5 had already examined the accuracy of the logic, milestone 6 was c
 #### UPDATING THE ARRAY
 ![pathLogic](pathLogic.jpg);
 The above explains how the code updates the path's array.   
-The most complicated logic is in the dead-end loop. 
+The most complicated logic is in the dead-end loop.   
 Note that a condition is added: when the robot detects a left/right turn in a dead-end loop, it looks at the previous path memorized. If the previous path is ‘F’ (forward), it will ignore the turn and move forward.   
 While updating the array, the cursor is also updated accordingly, so that it indicates where the next action should be recorded in the array.
 
