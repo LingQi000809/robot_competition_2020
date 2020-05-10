@@ -75,7 +75,7 @@ SOLUTION 1 nicely solved the issue.
 
   
 ### MILESTONE 5 COMPLETED!   
-[![milestone4-video](http://img.youtube.com/vi/qSIA5p916dI/0.jpg)](https://www.youtube.com/watch?v=qSIA5p916dI)
+[![milestone5-video](http://img.youtube.com/vi/qSIA5p916dI/0.jpg)](https://www.youtube.com/watch?v=qSIA5p916dI)
 *(This is a Youtube link)*  
   
 The meaning of the pitched beeps when the robot is solving the maze:
