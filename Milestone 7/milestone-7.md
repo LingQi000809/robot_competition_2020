@@ -21,6 +21,7 @@ This function was called:
 
   
 Thus, the *ADJUSTING_SPEED* is the speed at which the robot moves forward. The moveForwardDelayTime is the duration of which the robot moves forward.   
+  
 The *turnDelayTime* is for a similar purpose. When the robot is turning, there is a duration assigned during which the robot ignores the other conditions to avoid having it fall into the follow-line condition.  
 
 
