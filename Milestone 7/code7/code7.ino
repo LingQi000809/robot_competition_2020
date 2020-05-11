@@ -12,11 +12,11 @@ int linePos; // position of the line (readLine function)
 int error;
 
 // variable
-int NORMAL_SPEED = 250; // speed: 0 (stop) - 400 (full)
-int MAX_SPEED = 300;
-int ADJUSTING_SPEED = 150;
-int moveForwardDelayTime = 100;
-int turnDelayTime = 150;
+int NORMAL_SPEED = 100; // speed: 0 (stop) - 400 (full)
+int MAX_SPEED = 150;
+int ADJUSTING_SPEED = 120;
+int moveForwardDelayTime = 120;
+int turnDelayTime = 200;
 
 int ERROR_THRESHOLD = 500;
 int BLACK_THRESHOLD = 300; // > -> blackish
@@ -162,7 +162,7 @@ void loop() {
 
 
 void calibration() {
-  int CALIBRATION_SPEED = 140;
+  int CALIBRATION_SPEED = 150;
   for (int t = 0; t <= 80; t++) {
     // 0-10s turn clockwise; 10-30s turn anti-clockwise; 30-50s turn clockwise; 50-70s turn anti-clockwise; 70-80 turn clockwise back to front
     if ((t <= 10) || (t > 30 && t <= 50) || (t > 70))
@@ -219,15 +219,17 @@ void solved() {
 void resetValues(){
   nPath = branchCursor-1;
   branchCursor = 0;
-  NORMAL_SPEED = 300;
-  MAX_SPEED = 400;
+  NORMAL_SPEED = 200;
+  MAX_SPEED = 250;
   LINEPOS_SPEED_RATIO = (MAX_LINEPOS - MIDDLE_LINEPOS) / (MAX_SPEED - NORMAL_SPEED);
-  ADJUSTING_SPEED = 250;
+  ADJUSTING_SPEED = 200;
   moveForwardDelayTime = 50;
-  turnDelayTime = 80;
+  turnDelayTime = 150;
+  ERROR_THRESHOLD = 1000;
 }
   
 void solveMaze(){
+  
   while (branchCursor<=nPath){
     updateReadings();
     if (detectT() || detectL() || detectR()){
@@ -268,7 +270,7 @@ boolean allBlack() {
 }
 
 boolean detectT() {
-  return ((sensorChange[1] > 70) && (sensorChange[4] > 70));
+  return ((sensorChange[1] > 100) && (sensorChange[4] > 100));
 }
 //
 //boolean detectT() {

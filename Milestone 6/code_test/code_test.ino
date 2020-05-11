@@ -12,12 +12,13 @@ int linePos; // position of the line (readLine function)
 int error;
 
 // variable
-int NORMAL_SPEED = 320; // speed: 0 (stop) - 400 (full)
-int MAX_SPEED = 400;
-int ADJUSTING_SPEED = 250; 
+int NORMAL_SPEED = 230; // speed: 0 (stop) - 400 (full)
+int MAX_SPEED = 280;
+int ADJUSTING_SPEED = 230; 
 int moveForwardDelayTime = 50;
-int turnDelayTime = 80;
-int ERROR_THRESHOLD = 500;
+int turnDelayTime = 150;
+int ERROR_THRESHOLD = 1000;
+
 int BLACK_THRESHOLD = 300; // > -> blackish
 int WHITE_THRESHOLD = 100; // < -> whiteish
 
