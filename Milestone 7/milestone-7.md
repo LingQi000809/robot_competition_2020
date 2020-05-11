@@ -5,11 +5,11 @@
 This milestone was quite simple - adjusting the variables to find the right threshold for the increased speed.
 Yet, it took long to figure the right fits out. (And here we realized how important soft-coding is!)
 
-> int NORMAL_SPEED = 100; // The base speed of the robot
-> int MAX_SPEED = 150; // The Maximum speed (turning speed) of the robot. Also used to calculate the follow-line speed.
-> int ADJUSTING_SPEED = 120; // See below
-> int moveForwardDelayTime = 120; // See below
-> int turnDelayTime = 200; // See below
+> int NORMAL_SPEED = 100; // The base speed of the robot  
+> int MAX_SPEED = 150; // The Maximum speed (turning speed) of the robot. Also used to calculate the follow-line speed.  
+> int ADJUSTING_SPEED = 120; // See below  
+> int moveForwardDelayTime = 120; // See below  
+> int turnDelayTime = 200; // See below  
 
 I had a moveForward function for my robot. This gave the robot some time to perform simple moving forward action without entering any conditions. This allowed it to ignore the intersections during the small amount of time.  
 This function was called:
