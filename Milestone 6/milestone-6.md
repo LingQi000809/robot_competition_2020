@@ -11,7 +11,7 @@ As Milestone 5 had already examined the accuracy of the logic, milestone 6 was c
 #### Cursor
 - There is an int cursor that keeps track of where we are in the array. 
 #### UPDATING THE ARRAY
-![pathLogic](pathLogic.jpg);
+![pathLogic](pathLogic.jpg)
 The above explains how the code updates the path's array.   
 The most complicated logic is in the dead-end loop.   
 Note that a condition is added: when the robot detects a left/right turn in a dead-end loop, it looks at the previous path memorized. If the previous path is ‘F’ (forward), it will ignore the turn and move forward.   

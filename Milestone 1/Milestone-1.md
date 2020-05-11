@@ -8,7 +8,7 @@
 
 ### Arena
 Since I only had two 15cm-rulers, the arena was set up quite roughly by moving the rulers along.  
-![arena1_materials](arena1_materials.jpg)
+![arena1_materials](.arena1_materials.jpg.icloud)
 
 Here is the look:  
 ![arena1](arena1.jpg)
