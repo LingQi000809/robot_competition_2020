@@ -56,11 +56,6 @@ void loop() {
   if (detectT()) {
     buzzer.play("O4 f");
     Serial.println("----------T----------");
-
-//    Serial.print("[1]-last[1]: ");
-//    Serial.println(sensorChange[1]);
-//    Serial.print("[4]-last[4]: ");
-//    Serial.println(sensorChange[4]);
     printValues();
     
     moveForward();
@@ -140,14 +135,6 @@ void loop() {
         printBranches();
       }
 
-      // shouldn't have another deadEnd inside a deadEnd condition if detecting T every time.
-      else if (deadEnd()) {
-        buzzer.play("cdedc");
-        Serial.println("----------DEADEND----------");
-        printValues();
-        turnRound();
-      }
-
       else followLine();
       printValues();
     }
@@ -203,8 +190,6 @@ void solved() {
   
   // examine & end
   printBranches();
-//  buzzer.play("!T250 O4 L8 g O5 ceg O6 ceg4.e4. O4 a- O5 ce-a- O6 ce-a-4.e-4. O4 b- O5 dfb- O6 df b-4r MS b-b-b- ML O7 c2.");
-//  while (buzzer.isPlaying());
   buzzerPath();
   while (buzzer.isPlaying());
   
@@ -272,15 +257,6 @@ boolean allBlack() {
 boolean detectT() {
   return ((sensorChange[1] > 100) && (sensorChange[4] > 100));
 }
-//
-//boolean detectT() {
-//  return ((sensorValues[0] > 100)
-//          && (sensorValues[1] > 100)
-//          && (sensorValues[2] > 100)
-//          && (sensorValues[3] > 100)
-//          && (sensorValues[4] > 100)
-//          && (sensorValues[5] > 100));
-//}
 
 boolean deadEnd() {
   return ((sensorValues[0] < WHITE_THRESHOLD)
@@ -312,7 +288,7 @@ void moveForward() {
   updateReadings();
 }
 
-void backToBranch() { // might have problem with cross road
+void backToBranch() {
   do {
     motors.setSpeeds(-100, -100);
     updateReadings();
@@ -322,7 +298,6 @@ void backToBranch() { // might have problem with cross road
 }
 
 void turnRound() {
-  //  for (int i = 0; i < 3; i++)
   moveForward();
   motors.setSpeeds(MAX_SPEED, -MAX_SPEED);
   while (abs(error) > ERROR_THRESHOLD) {
@@ -369,12 +344,6 @@ void turnLeft() {
 }
 
 void followLine() {
-  //    Serial.print("linePos = ");
-  //    Serial.print(linePos);
-  //    Serial.print("error = ");
-  //    Serial.print(error);
-  //    Serial.print("; v = ");
-  //    Serial.println(v);
   if (abs(error) > ERROR_THRESHOLD) {
     if (linePos > 2500)  // left, anti-clockwise
       motors.setSpeeds(v, -v);
